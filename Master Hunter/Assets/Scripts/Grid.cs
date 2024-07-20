@@ -18,8 +18,13 @@ public class Grid : MonoBehaviour
     {
         Tuple<float, float> gridCoordinates = GetSelectedCell();
 
-        Vector3 newPos = new Vector3(gridCoordinates.Item1,1,gridCoordinates.Item2);
-        _gridCellSelectVisual.position = newPos;
+        if (gridCoordinates != null)
+        {
+
+            Vector3 newPos = new Vector3(gridCoordinates.Item1, 0f, gridCoordinates.Item2);
+
+            _gridCellSelectVisual.position = newPos;
+        }
     }
     private Vector3 GetMousePosition()
     {
@@ -28,20 +33,22 @@ public class Grid : MonoBehaviour
         {
             return hitInfo.point - this.transform.position;
         }
-        return this.transform.position;
+        return Vector3.down;
     }
     private Tuple<float, float> GetSelectedCell()
     {
         Vector3 pos = GetMousePosition();
-        float i = 0, j = 0;
-        
-        if (Input.GetMouseButtonDown(0))
+        if (pos != Vector3.down)
         {
+
+            float i, j;
+
             i = Mathf.FloorToInt(pos.x);
             j = Mathf.FloorToInt(pos.z);
-        }
 
-        return Tuple.Create(i, j);
+            return Tuple.Create(i, j);
+        }
+        return null;
     }
 
     // Start is called before the first frame update
@@ -54,7 +61,10 @@ public class Grid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GetSelectedCell();
+        if (Input.GetMouseButtonDown(0))
+        {
+            GetSelectedCell();
+        }
         UpdateGridCellVisual();
     }
 }
