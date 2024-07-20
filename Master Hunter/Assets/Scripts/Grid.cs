@@ -14,6 +14,21 @@ public class Grid : MonoBehaviour
 
     int[,] myGrid;
 
+    void PlaceObjectInGrid(Transform objectToBePlaced, int sizeX, int sizeZ, int cost)
+    {
+        for (int x = 0; x < myGrid.GetLength(0); x++)
+        {
+            for(int z = 0; z < myGrid.GetLength(1); z++)
+            {
+                if (z >= sizeZ && x >= sizeX && (myGrid[z, x] + cost) < _maxItemsInGridCell)
+                {
+                    Vector3 pos = new Vector3(x,this.transform.position.y, z);
+                    Instantiate(objectToBePlaced, pos, this.transform.rotation, this.transform);
+                    myGrid[z, x] += cost;
+                }
+            }
+        }
+    }
     void UpdateGridCellVisual()
     {
         Tuple<float, float> gridCoordinates = GetSelectedCell();
