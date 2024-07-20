@@ -10,8 +10,17 @@ public class Grid : MonoBehaviour
     [SerializeField] private int _gridSizeX;
     [SerializeField] private int _gridSizeZ;
     [SerializeField] private int _maxItemsInGridCell;
+    [SerializeField] private Transform _gridCellSelectVisual;
 
     int[,] myGrid;
+
+    void UpdateGridCellVisual()
+    {
+        Tuple<float, float> gridCoordinates = GetSelectedCell();
+
+        Vector3 newPos = new Vector3(gridCoordinates.Item1,1,gridCoordinates.Item2);
+        _gridCellSelectVisual.position = newPos;
+    }
     private Vector3 GetMousePosition()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -46,5 +55,6 @@ public class Grid : MonoBehaviour
     void Update()
     {
         GetSelectedCell();
+        UpdateGridCellVisual();
     }
 }
