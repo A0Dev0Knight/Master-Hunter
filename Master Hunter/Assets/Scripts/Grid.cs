@@ -9,6 +9,7 @@ public class Grid : MonoBehaviour
 
     [SerializeField] private int _gridSizeX;
     [SerializeField] private int _gridSizeZ;
+    [SerializeField] private int _maxItemsInGridCell;
 
     int[,] myGrid;
     private Vector3 GetMousePosition()
@@ -29,7 +30,6 @@ public class Grid : MonoBehaviour
         {
             i = Mathf.FloorToInt(pos.x);
             j = Mathf.FloorToInt(pos.z);
-            Debug.Log($"cell: [{i}] [{j}] with value {myGrid[(int)i,(int)j]}");
         }
 
         return Tuple.Create(i, j);
@@ -40,7 +40,6 @@ public class Grid : MonoBehaviour
     {
         this.transform.localScale = new Vector3(_gridSizeX, GRID_HEIGHT, _gridSizeZ);
         myGrid = new int[_gridSizeZ, _gridSizeX];
-        myGrid[0, 0] = 100;
     }
 
     // Update is called once per frame

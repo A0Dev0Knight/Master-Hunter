@@ -340,6 +340,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gridSizeX: 6
   _gridSizeZ: 6
+  _maxItemsInGridCell: 10
 --- !u!4 &1444315890
 Transform:
   m_ObjectHideFlags: 0
